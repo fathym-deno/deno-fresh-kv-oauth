@@ -14,7 +14,7 @@ Add an import to the `deno.json` file for `@fresh_kv_oauth`:
 ```
 imports: {
     ...
-    "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth@v0.0.1-integration1/mod.ts"
+    "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth/mod.ts"
     ...
 }
 ```
