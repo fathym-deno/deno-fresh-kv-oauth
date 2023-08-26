@@ -9,12 +9,13 @@ providers such as GitHub, Google, and Facebook.
 
 ### Import Library
 
-Add an import to the `deno.json` file for `@fresh_kv_oauth`:
+Add an import to the `deno.json` file for `@kv_oauth` and `@fresh_kv_oauth`:
 
 ```
 imports: {
     ...
-    "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth/mod.ts"
+    "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth/mod.ts",
+    "@kv_oauth": "https://deno.land/x/deno_kv_oauth/mod.ts",
     ...
 }
 ```
