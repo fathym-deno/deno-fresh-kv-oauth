@@ -1,53 +1,92 @@
 # deno-fresh-kv-oauth
 
-This project is a Deno Fresh wrapper around Deno KV Auth, which provides high-level OAuth 2.0 authentication powered by Deno KV. It allows you to easily add authentication to your Deno Fresh web application using popular OAuth 2.0 providers such as GitHub, Google, and Facebook.
+This project is a Deno Fresh wrapper around Deno KV Auth, which provides
+high-level OAuth 2.0 authentication powered by Deno KV. It allows you to easily
+add authentication to your Deno Fresh web application using popular OAuth 2.0
+providers such as GitHub, Google, and Facebook.
 
 ## Getting Started
 
-1. Add an import to the `deno.json` file for `@fresh_kv_oauth`:
+### Import Library
 
-   ```
-   "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth@v0.0.1-integration1/mod.ts"
-   ```
+Add an import to the `deno.json` file for `@fresh_kv_oauth`:
 
-   This will allow you to use the Deno Fresh wrapper around Deno KV Auth in your project.
+```
+imports: {
+    ...
+    "@fresh_kv_oauth": "https://deno.land/x/deno_fresh_kv_oauth@v0.0.1-integration1/mod.ts"
+    ...
+}
+```
 
-2. Create a new `kv-auth.config.ts` file at the root of the project and populate it with the following code:
+This will allow you to use the Deno Fresh wrapper around Deno KV Auth in your
+project.
 
-   ```
-   import { createGitHubOAuth2Client } from "@kv_oauth";
-   import { KVOauthPluginOptions } from "@fresh_kv_oauth";
+### KV Auth Configuration
 
-   export const gitHubOauth2Client = createGitHubOAuth2Client();
+Create a new `kv-auth.config.ts` file at the root of the project and populate it
+with the following code:
 
-   export const kvAuthOptions: KVOauthPluginOptions = {
-     Clients: [
-       {
-         OAuth2Client: gitHubOauth2Client,
-         SignInPath: "/oauth/signin/github",
-         SignInCallbackPath: "/oauth/callback/github",
-       },
-     ],
-     SignOutPath: "/oauth/signout",
-   };
-   ```
+```
+import { createGitHubOAuth2Client } from "@kv_oauth";
+import { KVOauthPluginOptions } from "@fresh_kv_oauth";
 
-   This code creates a new OAuth 2.0 client for GitHub and sets up the authentication options for the Deno Fresh wrapper around Deno KV Auth.
+export const gitHubOauth2Client = createGitHubOAuth2Client();
 
-3. Update the `fresh.config.ts` file to call the new plugin:
+export const kvAuthOptions: KVOauthPluginOptions = {
+  Clients: [
+    {
+      OAuth2Client: gitHubOauth2Client,
+      SignInPath: "/oauth/signin/github",
+      SignInCallbackPath: "/oauth/callback/github",
+    },
+  ],
+  SignOutPath: "/oauth/signout",
+};
+```
 
-   ```
-   import { kvOauthPlugin } from "@fresh_kv_oauth";
-   import { kvAuthOptions } from "./kv-auth.config.ts";
+This code creates a new OAuth 2.0 client for GitHub and sets up the
+authentication options for the Deno Fresh wrapper around Deno KV Auth.
 
-   export default defineConfig({
-     plugins: [
-       twindPlugin(twindConfig),
-       kvOauthPlugin(kvAuthOptions),
-     ],
-   });
-   ```
+### Fresh Plugin Registration
 
-   This code imports the `kvOauthPlugin` from the Deno Fresh wrapper around Deno KV Auth and passes in the authentication options from the `kv-auth.config.ts` file.
+Update the `fresh.config.ts` file to call the new plugin:
 
-That's it! Your project is now configured to use the Deno Fresh wrapper around Deno KV Auth for authentication.
+```
+import { kvAuthOptions } from "./kv-auth.config.ts";
+import { kvOauthPlugin } from "@fresh_kv_oauth";
+
+export default defineConfig({
+  plugins: [
+    ...
+    kvOauthPlugin(kvAuthOptions),
+    ...
+  ],
+});
+```
+
+This code imports the `kvOauthPlugin` from the Deno Fresh wrapper around Deno KV
+Auth and passes in the authentication options from the `kv-auth.config.ts` file.
+
+That's it! Your project is now configured to use the Deno Fresh wrapper around
+Deno KV Auth for authentication.
+
+## Configuring OAuth 2 Clients
+
+You will need to setup any of the OAuth 2 Clients yourself, using the
+appropriate service.
+
+### GitHub Client
+
+To configure your github client, navigate to the appropriate GitHub
+organization. Then go under settings, and on the left choose Developer Settings
+
+> OAtuh Apps. From there, you can create a new application, with whatever
+> settings you need. At the end you will need to collect the client ID and
+> generate a client secret. With those in hand, create a `.env` file at the root
+> an insert your information.
+
+```
+GITHUB_CLIENT_ID={client_id}
+GITHUB_CLIENT_SECRET={client_secret}
+```
