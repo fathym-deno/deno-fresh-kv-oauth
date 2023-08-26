@@ -1,0 +1,37 @@
+{
+  "tasks": {
+    "build": "deno task build:fmt && deno task build:lint && deno task test",
+    "build:fmt": "deno fmt",
+    "build:lint": "deno lint",
+    "deploy": "deno task build && ftm git",
+    "npm:build": "deno run -A scripts/npm.build.ts",
+    "npm:publish": "npm publish ./build --access public",
+    "test": "deno test -A ./tests/tests.ts --coverage=cov"
+  },
+  "imports": {
+    "$dnt": "https://deno.land/x/dnt/mod.ts",
+    "$std/": "https://deno.land/std@0.195.0/"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "lock": false,
+  "fmt": {
+    "files": {
+      "include": [],
+      "exclude": []
+    },
+    "options": {}
+  },
+  "lint": {
+    "files": {
+      "include": [],
+      "exclude": []
+    },
+    "rules": {
+      "include": [],
+      "exclude": []
+    }
+  }
+}
