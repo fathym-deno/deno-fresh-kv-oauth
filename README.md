@@ -20,7 +20,7 @@ imports: {
 ```
 
 This will allow you to use the Deno Fresh wrapper around Deno KV Auth in your
-project.
+project. Its good practice to specifiy a version in your import statements.
 
 ### KV Auth Configuration
 
