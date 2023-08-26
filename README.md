@@ -23,6 +23,18 @@ imports: {
 This will allow you to use the Deno Fresh wrapper around Deno KV Auth in your
 project. Its good practice to specifiy a version in your import statements.
 
+Because Deno KV Auth uses Deno KV under the hood, it is required that you start
+your application with the `--unstable` flag. To achieve this, open your
+deno.json file and edit the start task to include the flag:
+
+```
+"tasks": {
+    ...
+    "start": "deno run -A --unstable --watch=static/,routes/ dev.ts",
+    ...
+},
+```
+
 ### KV Auth Configuration
 
 Create a new `kv-auth.config.ts` file at the root of the project and populate it
