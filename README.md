@@ -21,7 +21,9 @@ imports: {
 ```
 
 This will allow you to use the Deno Fresh wrapper around Deno KV Auth in your
-project. Its good practice to specifiy a version in your import statements.
+project.
+
+> Its good practice to specifiy a version in your import statements.
 
 Because Deno KV Auth uses Deno KV under the hood, it is required that you start
 your application with the `--unstable` flag. To achieve this, open your
