@@ -83,7 +83,9 @@ Auth and passes in the authentication options from the `kv-auth.config.ts` file.
 
 ### Use In Code
 
-To use the authentication in your code, you can import the necessary functions and integrate them into your application. Here's an example of how you can use the `getSessionId` function from `@kv_oauth` in your Deno Fresh application:
+To use the authentication in your code, you can import the necessary functions
+and integrate them into your application. Here's an example of how you can use
+the `getSessionId` function from `@kv_oauth` in your Deno Fresh application:
 
 ```typescript
 import { AppProps } from "$fresh/server.ts";
@@ -91,18 +93,39 @@ import { getSessionId } from "@kv_oauth";
 
 export default async function App(req: Request, { Component }: AppProps) {
   const sessionId = await getSessionId(req);
+
   const isSignedIn = sessionId !== undefined;
 
   return (
     <>
-      {isSignedIn && <h1>Hi</h1>}
+      {isSignedIn
+        ? (
+          <a
+            id="sign-in-button"
+            href="/oauth/signout"
+            class="text-xl mx-1"
+          >
+            Sign Out
+          </a>
+        )
+        : (
+          <a
+            id="sign-in-button"
+            href="/oauth/signin/github"
+            class="text-xl mx-1"
+          >
+            Sign In
+          </a>
+        )}
       <Component />
     </>
   );
 }
 ```
 
-This code retrieves the session ID using the `getSessionId` function and checks if the user is signed in. If the user is signed in, it displays a "Hi" message, otherwise it renders the component.
+This code retrieves the session ID using the `getSessionId` function and checks
+if the user is signed in. If the user is signed in, it displays a "Hi" message,
+otherwise it renders the component.
 
 That's it! Your project is now configured to use the Deno Fresh wrapper around
 Deno KV Auth for authentication.
